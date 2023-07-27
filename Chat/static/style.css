@@ -1,0 +1,37 @@
+* {
+    background-color: #c49f9f;
+  }
+ 
+.m-box{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 10vh; /* Adjust the height as needed */
+  }  
+  
+.d-box{
+  
+  text-align: center;
+  border-style: dotted;
+  width: 200px;
+}
+.j-box{
+  
+  text-align: center;
+  border-style: dotted;
+  width: 200px;
+}
+
+.x-button {
+  margin-top: 2px;
+  float: right;
+}
+
+.x-button:hover{
+  background-color: red;
+}
+
+.textbox{
+  display: block;
+  text-align: center;
+}

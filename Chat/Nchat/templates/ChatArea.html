@@ -1,0 +1,43 @@
+{% extends 'index.html' %} {% block choose %}
+<div class="textbox">
+  <h4>Group ID :- {{group}}</h4>
+  <textarea id="txtar" rows="25" cols="70" readonly>
+{% for chat in chats %}{{chat}}{% endfor %}</textarea
+  >
+  <br />
+  <input id="snd" type="text" />
+  <button onclick="sendMsg()">Send</button>
+</div>
+<script>
+  const name = "{{name}}";
+  const group = "{{group}}";
+  const ws = new WebSocket(`ws://127.0.0.1:8000/chat/${group}`);
+
+  ws.onopen = function (event) {
+    document.getElementById("txtar").style.backgroundColor = "lightblue";
+  };
+  ws.onmessage = function (event) {
+    const data = JSON.parse(event.data);
+    console.log(data);
+    document.getElementById("txtar").innerHTML +=
+      data.name + ": \n" + data.Message + "\n";
+  };
+  ws.onerror = function (event) {};
+  ws.onclose = function (event) {
+    document.getElementById("txtar").style.backgroundColor = "red";
+
+    alert("connection to server lost");
+  };
+  // for sendending messaage
+  const sendMsg = () => {
+    const Msg = document.getElementById("snd").value;
+    ws.send(
+      JSON.stringify({
+        name: `${name}`,
+        Message: `${Msg}`,
+      })
+    );
+    document.getElementById("snd").value = "";
+  };
+</script>
+{% endblock choose %}

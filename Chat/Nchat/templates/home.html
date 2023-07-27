@@ -1,0 +1,101 @@
+{% extends 'index.html' %}
+{% block choose %}
+<h4 style="text-align: center;">Choose Option </h4>
+    <div style="text-align: center;display:block">
+        <button onclick="newGroup()">Create a chat Room</button>
+        <button onclick="oldGroup()">Join a chat Chat-Room</button>
+    </div>
+    <div class="m-box" id="mbox">
+        <div class="d-box" id="dbox">
+            <button class="x-button" onclick="closeBox()">x</button>
+            <br>
+            <hr>
+            <br>
+            <br>
+            <h3>Enter a Name </h3>
+            <input type="text" id="inputName">
+            <button class="s-button" onclick="creatChannel()">lets Chat</button>
+            <p>Happy chatting</p>
+        </div>
+        <div class="j-box" id="jbox">
+            <button class="x-button" onclick="closeBox()">x</button>
+            <br>
+            <hr>
+            <br>
+            <br>
+            <h3>Enter a Name</h3>
+            <input type="text" id="joinName">
+            <h3>Enter Group code </h3>
+            <input type="text" id="groupCode">
+            <button class="s-button" onclick="joinChannel()">lets Chat</button>
+            <p>Happy chatting</p>
+        </div>
+    </div>
+
+
+    <script>
+        // funtion for dialog box and channel name
+        const newGroup = () => {
+            const dBox = document.getElementById('mbox');
+            dBox.style.display = "flex";
+            document.getElementById('jbox').style.display = "none"
+            document.getElementById('dbox').style.display = "inline"
+
+
+        }
+        const oldGroup = () => {
+            const dBox = document.getElementById('mbox');
+            dBox.style.display = "flex";
+            document.getElementById('dbox').style.display = "none"
+            document.getElementById('jbox').style.display = "inline"
+
+
+        }
+
+        // creating a name for user and channel name
+        const creatChannel = () => {
+            const inputName = document.getElementById('inputName').value
+            if (inputName == '') {
+                alert("need a name")
+
+            } else {
+                let result = '';
+                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                const charactersLength = characters.length;
+                // autogenerating a string for channel name
+                for (let i = 0; i < 5; i++) {
+                    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+                }
+                const newUrl = window.location.href + 'c' + `?name=${inputName}&group=${result}`;
+                window.location.href = newUrl;
+
+            }
+        }
+        // funtion for joining to a channel 
+        const joinChannel = () => {
+            let inputName = document.getElementById('joinName').value
+            let result = document.getElementById('groupCode').value
+            if (inputName == '') {
+                alert("need a name")
+
+            } else {
+                const newUrl = window.location.href + 'c' + `?name=${inputName}&group=${result}`;
+                window.location.href = newUrl;
+
+            }
+
+            
+
+
+
+        }
+
+        //  funtion for closing dialoge box
+        const closeBox = () => {
+            const dBox = document.getElementById('mbox');
+            dBox.style.display = "none";
+        }
+
+
+    </script>
+{% endblock choose %}
